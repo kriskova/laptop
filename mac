@@ -143,6 +143,12 @@ brew "postgresql@9.5", restart_service: :changed
 brew "redis", restart_service: :changed
 EOF
 
+fancy_echo "Update postgresql binary..."
+brew link postgresql@9.5 --force
+
+fancy_echo "Create postgres user..."
+createuser -s postgres
+
 if brew list | grep --silent "qt@5.5"; then
   fancy_echo "Symlink qmake binary to /usr/local/bin for Capybara Webkit..."
   brew unlink qt@5.5
