@@ -122,6 +122,9 @@ brew "the_silver_searcher"
 brew "tmux"
 brew "vim"
 brew "zsh"
+brew "ack"
+brew "bash"
+brew "bash-completion"
 
 # Heroku
 brew "heroku"
@@ -142,6 +145,18 @@ brew "ruby-build"
 brew "postgresql@9.5", restart_service: :changed
 brew "redis", restart_service: :changed
 EOF
+
+fancy_echo "Setting up bash"
+
+bash_path=$HOMEBREW_PREFIX/bin/bash
+
+if ! grep "$bash_path" /etc/shells > /dev/null 2>&1 ; then
+  fancy_echo "Adding '$bash_path' to /etc/shells"
+  sudo sh -c "echo $bash_path >> /etc/shells"
+fi
+
+git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+. "$HOME/.bash_it/install.sh"
 
 fancy_echo "Update postgresql binary..."
 brew link postgresql@9.5 --force
