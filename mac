@@ -146,7 +146,6 @@ brew "postgresql@9.5", restart_service: :changed
 brew "redis", restart_service: :changed
 EOF
 
-
 fancy_echo "Setting up bash"
 
 bash_path=$HOMEBREW_PREFIX/bin/bash
